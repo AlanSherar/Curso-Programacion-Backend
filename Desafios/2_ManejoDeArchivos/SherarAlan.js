@@ -1,17 +1,18 @@
 const fs = require('fs')
 
 class Contenedor{
-    
+
+    static ruta
+
     constructor(ruta){
         this.ruta = ruta
     }
 
+
     /* save(Object): Number - Recibe un objeto, lo guarda en el archivo, devuelve el id asignado */
     async save(prod){
         //recibo el archivo como array de objetos
-
-        try {
-            const file = await this.getAll()
+        const file = await this.getAll()
 
         //decidimos id
         let idnum
@@ -35,10 +36,6 @@ class Contenedor{
         })
         
         return idnum
-        } catch (error) {
-            throw new Error(error)
-        }
-
     }
 
     /* getById(Number): Object - Recibe un id y devuelve el objeto con ese id, o null si no está. */
