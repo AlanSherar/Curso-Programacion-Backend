@@ -110,6 +110,7 @@ const contenedor1 = new Contenedor('./productos.txt')
 
 let prodArr
 let prodNamesArr
+let prodNamesList
 
 async function administrarProductos(contenedor) {
     await contenedor.save({title:'Remera', precio: 1500.99, thumbnail:'http://d3ugyf2ht6aenh.cloudfront.net/stores/001/719/894/products/remera_lisa_amarilla1-ad7aabde36568fbb6316249901780168-640-0.png'})
@@ -118,6 +119,7 @@ async function administrarProductos(contenedor) {
     
     prodArr = await contenedor.getAll()
     prodNamesArr = await contenedor.getAllNames()
+    prodNamesList = prodNamesArr.join(', ')
 }
 
 administrarProductos(contenedor1)
@@ -133,11 +135,15 @@ const server = app.listen(PORT, () => {
 ///////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/productos', (req, res) => {
-    res.send(`Los productos disponibles en este momento son: ${prodNamesArr}`)
+    res.send(prodArr)
 })
 
 app.get('/productoRandom',(req,res) => {
-    res.send(prodNamesArr[Math.floor(Math.random() * prodNamesArr.length)])
+    res.send(prodArr[Math.floor(Math.random() * prodArr.length)])
+})
+
+app.get('/', (req, res) => {
+    res.send(`Los productos disponibles en este momento son: ${prodNamesList}.`)
 })
 
 
