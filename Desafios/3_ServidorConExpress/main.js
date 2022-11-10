@@ -108,42 +108,44 @@ class Contenedor{
 }
 const contenedor1 = new Contenedor('./productos.txt')
 
-let prodArr
+/* let prodArr
 let prodNamesArr
-let prodNamesList
+let prodNamesList */
 
-async function administrarProductos(contenedor) {
-    await contenedor.save({title:'Remera', precio: 1500.99, thumbnail:'http://d3ugyf2ht6aenh.cloudfront.net/stores/001/719/894/products/remera_lisa_amarilla1-ad7aabde36568fbb6316249901780168-640-0.png'})
-    await contenedor.save({title:'Pantalon', precio: 3500.99, thumbnail:'https://media.istockphoto.com/photos/mens-trousers-picture-id510615049?k=20&m=510615049&s=612x612&w=0&h=V2qWdnou1w6ctJnfiRlYxQp6QwgX8yRMBBOCMxm7ei0='})
-    await contenedor.save({title:'Campera', precio: 15000.99, thumbnail:'https://static.dafiti.com.ar/p/aloud-2878-140437-1-product.jpg'})
-    
-    prodArr = await contenedor.getAll()
-    prodNamesArr = await contenedor.getAllNames()
-    prodNamesList = prodNamesArr.join(', ')
+async function guardarProductos(contenedor) {
+  await contenedor.save({title:'Remera', precio: 1500.99, thumbnail:'http://d3ugyf2ht6aenh.cloudfront.net/stores/001/719/894/products/remera_lisa_amarilla1-ad7aabde36568fbb6316249901780168-640-0.png'})
+  await contenedor.save({title:'Pantalon', precio: 3500.99, thumbnail:'https://media.istockphoto.com/photos/mens-trousers-picture-id510615049?k=20&m=510615049&s=612x612&w=0&h=V2qWdnou1w6ctJnfiRlYxQp6QwgX8yRMBBOCMxm7ei0='})
+  await contenedor.save({title:'Campera', precio: 15000.99, thumbnail:'https://static.dafiti.com.ar/p/aloud-2878-140437-1-product.jpg'})
+  
+  /* prodArr = await contenedor.getAll()
+  prodNamesArr = await contenedor.getAllNames()
+  prodNamesList = prodNamesArr.join(', ') */
 }
 
-administrarProductos(contenedor1)
+guardarProductos(contenedor1)
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 const app = express()
 const PORT = 8080
 
 const server = app.listen(PORT, () => {
-    console.log(`El servidor fue iniciado con exito desde el puerto : ${PORT}`)
+  console.log(`El servidor fue iniciado con exito desde el puerto : ${PORT}`)
 })
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
-app.get('/productos', (req, res) => {
-    res.send(prodArr)
+app.get('/productos', async (req, res) => {
+  res.send(await contenedor1.getAll())
 })
 
-app.get('/productoRandom',(req,res) => {
-    res.send(prodArr[Math.floor(Math.random() * prodArr.length)])
+app.get('/productoRandom', async (req,res) => {
+  const prodArr = await contenedor1.getAll()
+
+  res.send(prodArr[Math.floor(Math.random() * prodArr.length)])
 })
 
-app.get('/', (req, res) => {
-    res.send(`Los productos disponibles en este momento son: ${prodNamesList}.`)
+app.get('/', async (req, res) => {
+  res.send(`Los productos disponibles en este momento son: ${(await contenedor1.getAllNames()).join(', ')}.`)
 })
 
 
