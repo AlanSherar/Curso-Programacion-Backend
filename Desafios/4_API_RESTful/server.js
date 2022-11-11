@@ -91,8 +91,9 @@ router.get('/:id', getById, (req, res) => {
 })
 //POST
 router.post('/', addId, (req, res) => {
-  productos.push(req.body)
-  res.json({Producto: 'OK'})
+  const prod = req.body
+  productos.push(prod)
+  res.json(prod)
 })
 //PUT
 router.put('/:id', putById, (req, res) => {
