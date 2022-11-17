@@ -8,7 +8,7 @@ const router = new Router()
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-app.use('/',express.static(__dirname+'/public'))
+app.use('/', express.static(__dirname+'/public'))
 app.use('/api/productos', router)
 
 const productos = []
@@ -27,7 +27,7 @@ function addId( req, res, next){
     idNum = productos[productos.length - 1].id + 1
   }
   /*Añado id*/
-  req.body = {...req.body, id: idNum}
+  req.body.id = idNum
   next()
 }
 function getById(req, res, next){
@@ -41,7 +41,7 @@ function getById(req, res, next){
   while (i < id && i < productos.length) {
     if (productos[i].id == id) {
       req.prod = productos[i]
-      next()
+      return next()
     }
     i++
   }
