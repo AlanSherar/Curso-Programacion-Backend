@@ -18,7 +18,7 @@ app.get('/productos', (req, res)=>{
 
   if(productos.length > 0)
     listExists = true
-
+  
   res.render('productos', {productos, listExists})
 })
 
