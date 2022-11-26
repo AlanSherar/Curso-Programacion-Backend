@@ -1,4 +1,4 @@
-extends layout.pug
+extends _layout.pug
 
 block prods
 
@@ -9,14 +9,14 @@ block prods
   if listExists
     div(class="table-responsive px-4")
       table(class="table table-dark")
-        tr(style="color: yellow;") 
+        tr(style="color: yellow;")
           th Title 
           th Price 
           th Thumbnail
-            each prod in productos 
-              tr
-                each val in prod
-                  td= val
+        each prod in productos
+          tr
+            each val in prod
+              td= val
   else
     p No se encontraron productos
 
