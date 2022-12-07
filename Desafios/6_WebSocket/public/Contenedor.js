@@ -85,25 +85,25 @@ class Contenedor{
     /* deleteById(Number): void - Elimina del archivo el objeto con el id buscado. */
     async deleteById(id) {
 
-        try {
+      try {
 
-            const file = await this.getAll()
+          const file = await this.getAll()
 
-            let i = 0
-            while (i<id) {
-                if ((file[i]) && (file[i].id == id)) {
-                    console.log(`Producto: ${(await this.getById(id)).title}. Eliminado con éxito.`)
-                    file.splice(i,1)
-                }
-                i++
-            }
-            
-            await fs.promises.writeFile(this.ruta, JSON.stringify(file), null, 2)
+          let i = 0
+          while (i<id) {
+              if ((file[i]) && (file[i].id == id)) {
+                  console.log(`Producto: ${(await this.getById(id)).title}. Eliminado con éxito.`)
+                  file.splice(i,1)
+              }
+              i++
+          }
+          
+          await fs.promises.writeFile(this.ruta, JSON.stringify(file), null, 2)
 
 
-        } catch (error) {
-            throw new Error(error)
-        }
+      } catch (error) {
+          throw new Error(error)
+      }
     }
 
     /* deleteAll(): void - Elimina todos los objetos presentes en el archivo */
