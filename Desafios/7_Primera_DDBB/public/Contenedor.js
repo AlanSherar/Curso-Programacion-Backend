@@ -7,10 +7,10 @@ class DBCliente{
   }
 
   #connectDb() {
-    return (this.knex = knex(this.options));
+    return this.knex = knex(this.options)
   }
   async #destroyDb() {
-    return await this.knex.destroy();
+    return await this.knex.destroy()
   }
 
   async crearTablaProductos(){
