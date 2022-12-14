@@ -1,7 +1,6 @@
 const DBCliente = require("./public/Contenedor")
 const mariaOptions = require("./options/mariaOpt")
 const sqliteOptions = require("./options/sqliteOpt")
-const inicializarTabla = require("./crearTablas")
 const express = require("express")
 const { Server: HttpServer } = require("http")
 const { Server: IOServer } = require("socket.io")
