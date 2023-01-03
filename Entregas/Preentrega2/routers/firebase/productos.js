@@ -45,4 +45,4 @@ export class fireProductosRouter extends express.Router {
   }
 }
 
-export default mongoProductosRouter
+export default fireProductosRouter
