@@ -1,6 +1,6 @@
-import {FirebaseContainer} from "../FirebaseContainer"
+import {FirebaseContainer} from "../FirebaseContainer.js"
 
-class Carritos extends FirebaseContainer{
+export class Carritos extends FirebaseContainer{
   constructor(){
     super("carritos")
   }
@@ -10,7 +10,7 @@ class Carritos extends FirebaseContainer{
     let productos = [...doc.productos, newProd]
     doc.productos = productos
 
-    await this.query.doc(id).update(doc)
-
+    let res = await this.query.doc(id).update(doc)
+    return res
   }
 }

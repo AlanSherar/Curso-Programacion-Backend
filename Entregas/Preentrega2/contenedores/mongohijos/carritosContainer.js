@@ -1,6 +1,7 @@
-import MongoContainer from "../MongoContainer"
-import * as model from "../../models/carritos"
-class Carritos extends MongoContainer{
+import MongoContainer from "../MongoContainer.js"
+import * as model from "../../models/carritos.js"
+
+export class Carritos extends MongoContainer{
   constructor(){
     super()
   }
@@ -8,11 +9,11 @@ class Carritos extends MongoContainer{
   //GET
   async getAll(){
     try {
-      this.#connect()
+      this.connect()
 
-      let res = await new model.carritos.find()
+      let res = await model.carritos.find()
 
-      this.#disconnect()
+      this.disconnect()
       return res
     } catch (error) {
       console.log(error)
@@ -21,11 +22,11 @@ class Carritos extends MongoContainer{
 
   async getById(id){
     try {
-      this.#connect()
+      this.connect()
 
       let res = await model.carritos.find({_id:id})
 
-      this.#disconnect()
+      this.disconnect()
       return res
     } catch (error) {
       console.log(error)
@@ -35,27 +36,26 @@ class Carritos extends MongoContainer{
   //POST
   async post(obj){
     try {
-      this.#connect()
+      this.connect()
 
-      await new model.carritos({productos: [obj]}).save()
+      let res = await model.carritos({productos: [obj]}).save()
       
-      this.#disconnect()
-      return obj
+      this.disconnect()
+      return {carrito: res, producto: obj }
     } catch (error) {
       console.log(error)
     }
   }
 
   //PUT
-  async put(id, obj){
+  async put(id, carr){
     try {
-      this.#connect()
+      this.connect()
 
-      let prods = await model.carritos.find({_id: id}, {productos: 1, _id: 0, timestamp: 0})
-      prods = [...prods, obj]
-      await model.carritos.updateOne({_id: id}, {productos: prods})
+      let res = await model.carritos.updateOne({_id: id}, carr)
 
-      this.#disconnect()
+      this.disconnect()
+      return res
     } catch (error) {
       console.log(error)
     }
@@ -64,12 +64,12 @@ class Carritos extends MongoContainer{
   //DELETE
   async deleteById(id){
     try {
-      this.#connect()
+      this.connect()
       
-      await model.carritos.deleteOne({_id: id})
+      let res = await model.carritos.deleteOne({_id: id})
 
-      this.#disconnect()
-
+      this.disconnect()
+      return res
     } catch (error) {
       console.log(error)
     }

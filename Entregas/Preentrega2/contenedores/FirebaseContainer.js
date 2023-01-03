@@ -45,7 +45,7 @@ export class FirebaseContainer {
   }
 
   //PUT
-  async updateById(id, obj) {
+  async put(id, obj) {
     try {
       const res = await this.query.doc(id).update(obj)
       return res

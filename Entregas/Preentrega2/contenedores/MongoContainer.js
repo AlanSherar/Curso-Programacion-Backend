@@ -1,27 +1,30 @@
 import mongoose from "mongoose"
-import URL from "../config/mongoDB/url"
+import { URL } from "../config/mongoDB/url.js"
+
 class MongoContainer{
   constructor(){
   }
 
-  async #connect(){
+  async connect(){
     try {
       let res = await mongoose.connect(URL, {
         useNewUrlParser: true,
         UseUnifiedTopology: true
       })
-      console.log(res)
       console.log("DB conectada")
     } catch (error) {
       console.log(error)
     }
   }
 
-  async #disconnect(){
+  async disconnect(){
     try {
       await mongoose.disconnect()
+      console.log("desconectada")
     } catch (error) {
       console.log(error)
     }
   }
 }
+
+export default MongoContainer

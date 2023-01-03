@@ -1,6 +1,7 @@
-import MongoContainer from "../MongoContainer"
-import * as model from "../../models/productos"
-class Productos extends MongoContainer{
+import MongoContainer from "../MongoContainer.js"
+import * as model from "../../models/productos.js"
+
+export class Productos extends MongoContainer{
   constructor(){
     super()
   }
@@ -8,11 +9,11 @@ class Productos extends MongoContainer{
   //GET
   async getAll(){
     try {
-      this.#connect()
+      this.connect()
 
-      let res = await new model.productos.find()
+      let res = await model.productos.find()
+      this.disconnect()
 
-      this.#disconnect()
       return res
     } catch (error) {
       console.log(error)
@@ -21,11 +22,11 @@ class Productos extends MongoContainer{
 
   async getById(id){
     try {
-      this.#connect()
+      this.connect()
 
       let res = await model.productos.find({_id:id})
 
-      this.#disconnect()
+      this.disconnect()
       return res
     } catch (error) {
       console.log(error)
@@ -35,11 +36,11 @@ class Productos extends MongoContainer{
   //POST
   async post(obj){
     try {
-      this.#connect()
+      this.connect()
 
-      await new model.productos(obj).save()
+      await model.productos(obj).save()
       
-      this.#disconnect()
+      this.disconnect()
       return obj
     } catch (error) {
       console.log(error)
@@ -49,11 +50,12 @@ class Productos extends MongoContainer{
   //PUT
   async put(id, obj){
     try {
-      this.#connect()
+      this.connect()
 
-      await model.productos.updateOne({_id: id}, obj)
+      let res = await model.productos.updateOne({_id: id}, obj)
 
-      this.#disconnect()
+      this.disconnect()
+      return res
     } catch (error) {
       console.log(error)
     }
@@ -62,12 +64,12 @@ class Productos extends MongoContainer{
   //DELETE
   async deleteById(id){
     try {
-      this.#connect()
+      this.connect()
       
-      await model.productos.deleteOne({_id: id})
+      let res = await model.productos.deleteOne({_id: id})
 
-      this.#disconnect()
-
+      this.disconnect()
+      return res
     } catch (error) {
       console.log(error)
     }

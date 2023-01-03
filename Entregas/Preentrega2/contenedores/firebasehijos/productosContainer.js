@@ -1,9 +1,7 @@
-import FirebaseContainer from "../FirebaseContainer"
+import {FirebaseContainer} from "../FirebaseContainer.js"
 
-class Productos extends FirebaseContainer{
+export class Productos extends FirebaseContainer{
   constructor(){
     super("productos")
   }
-
-  
 }
