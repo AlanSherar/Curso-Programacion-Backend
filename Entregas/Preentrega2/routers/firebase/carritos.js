@@ -23,7 +23,7 @@ export class fireCarritosRouter extends express.Router {
     })
     this.post("/", async (req, res, next) => {
       try {
-        res.json(await carritos.post(req.body))
+        res.json(await carritos.post({productos: req.body}))
       } catch (error) {
         console.log(new Error(error))
       }
@@ -45,4 +45,4 @@ export class fireCarritosRouter extends express.Router {
   }
 }
 
-export default mongoCarritosRouter
+export default fireCarritosRouter

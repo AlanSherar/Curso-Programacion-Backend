@@ -10,8 +10,8 @@ const PORT = 8080
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
-/* app.use("/firebase/carritos", new fireCarritosRouter())
-app.use("/firebase/productos", new fireProductosRouter())*/
+app.use("/fire/carritos", new fireCarritosRouter())
+app.use("/fire/productos", new fireProductosRouter())
 app.use("/mongodb/carritos", new mongoCarritosRouter()) 
 app.use("/mongodb/productos", new mongoProductosRouter())
 
